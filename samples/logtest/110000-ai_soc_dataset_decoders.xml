@@ -1,0 +1,13 @@
+  GNU nano 8.3                /var/ossec/etc/decoders/110000-ai_soc_dataset_decoders.xml                          
+<decoder>
+	<decoder name="ai-soc-pentest">
+          <program_name>^ai-soc-pentest</program_name>
+        </decoder>
+
+        <decoder name="ai-soc-pentest-json">
+          <parent>ai-soc-pentest</parent>
+          <prematch>json_data: </prematch>
+          <plugin_decoder
+        offset="after_prematch">JSON_Decoder</plugin_decoder>
+        </decoder>
+</decoder>

@@ -1,0 +1,37 @@
+{
+	"type": "object",
+	"required": [
+		"event_id",
+		"timestamp",
+		"agent_name",
+		"rule_id",
+		"rule_level",
+		"rule_description",
+		"raw_event",
+		"scenario_id",
+		"attack_type",
+		"mitre_tactic",
+		"mitre_technique",
+		"label",
+		"confidence",
+		"ground_truth_source"
+	],
+	"properties": {
+		"event_id": {"type": "string"},
+		"timestamp": {"type": "string"}
+		"agent_name": {"type": "string"},
+		"source_ip": {"type": ["string", "null"]},
+		"destination_ip": {"type": ["string", "null"]},
+		"rule_id": {"type": ["string", "null"]},
+		"rule_level": {"type": ["integer", "null"]},
+		"rule_description": {"type": ["string", "null"]},
+		"raw_event": {"type": "string"},
+		"scenario_id": {"type": "string"},
+		"attack_type": {"type": "string"},
+		"mitre_tactic": {"type": "string"},
+		"mitre_technique": {"type": "string"},
+		"label": {"type": "string"},
+		"confidence": {"type": "number"},
+		"ground_truth_source": {"type": "string"}
+	}
+}

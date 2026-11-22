@@ -1,0 +1,47 @@
+# Wazuh Logtest Samples for SSH Agent (Built-in Rules)
+# These samples test Wazuh built-in SSH rules (5700-5799)
+# Lab CIDR: 10.0.0.0/16
+# Target: 10.0.2.15
+# Run with: /var/ossec/bin/logtest -c /var/ossec/etc/ossec.conf < samples/logtest/ssh_agent_samples.txt
+
+# SSH Brute Force - Failed password (Rule 5710)
+Jun 24 10:15:00 ssh-agent sshd[12345]: Failed password for labuser from 10.0.10.50 port 54321 ssh2
+
+# SSH Brute Force - Failed password for invalid user (Rule 5716)
+Jun 24 10:15:05 ssh-agent sshd[12346]: Failed password for invalid user admin from 10.0.10.50 port 54322 ssh2
+
+# SSH Brute Force - Invalid user (Rule 5712)
+Jun 24 10:15:10 ssh-agent sshd[12347]: Invalid user root from 10.0.10.50 port 54323
+
+# SSH Successful Authentication (Rule 5715)
+Jun 24 10:16:00 ssh-agent sshd[12348]: Accepted password for labuser from 10.0.10.50 port 54324 ssh2
+
+# SSH Session Opened (Rule 5715)
+Jun 24 10:16:01 ssh-agent sshd[12348]: pam_unix(sshd:session): session opened for user labuser by (uid=0)
+
+# SSH Privilege Escalation - sudo command (Rule 5760)
+Jun 24 10:20:00 ssh-agent sudo: labuser : COMMAND=/usr/bin/whoami
+
+# SSH Privilege Escalation - sudo authentication failure (Rule 5718)
+Jun 24 10:20:05 ssh-agent sudo: labuser : 1 incorrect password attempt
+
+# SSH Privilege Escalation - su attempt (Rule 5712/5718)
+Jun 24 10:21:00 ssh-agent su[12350]: FAILED su for root by labuser
+
+# SSH Lateral Movement - Failed connection to another host
+Jun 24 10:25:00 ssh-agent sshd[12351]: Failed password for labuser from 10.0.2.15 port 44444 ssh2
+
+# SSH Lateral Movement - Successful connection from compromised host
+Jun 24 10:26:00 ssh-agent sshd[12352]: Accepted password for labuser from 10.0.2.15 port 44445 ssh2
+
+# SSH Disconnect (Rule 5715)
+Jun 24 10:30:00 ssh-agent sshd[12348]: pam_unix(sshd:session): session closed for user labuser
+
+# SSH Connection from different source (recon)
+Jun 24 10:35:00 ssh-agent sshd[12353]: Connection from 10.0.20.100 port 22222 on 10.0.2.15 port 22
+
+# SSH Possible Break-in Attempt (Rule 5716)
+Jun 24 10:40:00 ssh-agent sshd[12354]: reverse mapping checking getaddrinfo for attacker.example.com failed - POSSIBLE BREAK-IN ATTEMPT!
+
+# SSH Key authentication
+Jun 24 10:45:00 ssh-agent sshd[12355]: Accepted publickey for labuser from 10.0.10.50 port 54326 ssh2: RSA SHA256:xxxxxxxxxxxxxx

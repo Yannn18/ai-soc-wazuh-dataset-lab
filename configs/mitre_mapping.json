@@ -1,0 +1,34 @@
+{
+	"recon_nmap_light": {
+		"attack_type": "recon",
+		"mitre_tactic": "Reconnaissance",
+		"mitre_technique": "Active Scanning",
+		"procedure": "Light port scan against lab target using Nmap",
+		"expected_wazuh_rule_group": ["recon", "network"],
+		"expected_artifact": ["network_connection", "service_probe"]
+	},
+	"auth_ssh_failed": {
+		"attack_type": "auth_attack",
+		"mitre_tactic": "Credential Access",
+		"mitre_technique": "Brute Force",
+		"procedure": "Controlled failed SSH login using dummy credential",
+		"expected_wazuh_rule_group": ["authentication_failed", "sshd"],
+		"expected_artifact": ["auth.log", "wazuh_alert"]
+	},
+	"web_input_dummy_sqli": {
+		"attack_type": "web_attack",
+		"mitre_tactic": "Initial Access",
+		"mitre_technique": "Exploit Public-Facing Application",
+		"procedure": "Dummy SQL injection pattern sent to vulnerable local web app",
+		"expected_wazuh_rule_group": ["web", "attack"],
+		"expected_artifact": ["access.log", "wazuh_alert"]
+	},
+	"fim_dummy_file_change": {
+		"attack_type": "fim_event",
+		"mitre_tactic": "Defense Evasion",
+		"mitre_technique": "Modify File or Directory",
+		"procedure": "Controlled change to dummy monitored file",
+		"expected_wazuh_rule_group": ["fim", "syscheck"],
+		"expected_artifact": ["syscheck_event", "wazuh_alert"]
+	}
+}

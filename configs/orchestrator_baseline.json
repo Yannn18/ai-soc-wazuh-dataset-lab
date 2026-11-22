@@ -1,0 +1,46 @@
+{
+	"lab": {
+		"lab_cidr": "192.168.56.0/24",
+		"target_ip": "192.168.56.30",
+		"target_web": "http://192.168.56.30:3000",
+		"wazuh_server": "192.168.56.30"
+	},
+	"runtime": {
+		"cooldown_seconds": 30,
+		"command_timeout_seconds": 300,
+		"max_scenarios": 20,
+		"seed": 20260624
+	},
+	"scenarios": [
+		{
+		"name": "normal_web_access",
+		"enabled": true,
+		"type": "benign",
+		"command": "curl -sS -I http://192.168.56.30:3000"
+		},
+		{
+		"name": "recon_nmap_light",
+		"enabled": true,
+		"type": "recon",
+		"command": "python scripts/recon_runner.py --profile nmap_light --target 192.168.56.30 --lab-cidr 192.168.56.0/24"
+		},
+		{
+		"name": "auth_ssh_failure",
+		"enabled": true,
+		"type": "auth_attack",
+		"command": "python scripts/auth_ssh_failure.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --max-attempts 5 --interval 3 --execute"
+		},
+		{
+		"name": "web_input_dummy",
+		"enabled": true,
+		"type": "web_attack",
+		"command": "python scripts/web_input_attack.py --url http://192.168.56.30:3000/search --param q --max-requests 5 --interval 2 --execute"
+		},
+		{
+		"name": "suspicious_command_note",
+		"enabled": true,
+		"type": "suspicious_command",
+		"command": "python scripts/write_custom_pentest_log.py --scenario-id suspicious_command_pattern --attack-type suspicious_command --target 192.168.56.30 --payload-id socket_enum_dummy --expected-label malicious --tool python --intensity low --success-status success"
+		}
+	]
+}

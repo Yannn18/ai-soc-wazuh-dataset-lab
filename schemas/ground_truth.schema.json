@@ -1,0 +1,42 @@
+{
+"type": "object",
+"required": [
+	"timestamp",
+	"scenario_id",
+	"run_id",
+	"attack_type",
+	"mitre_tactic",
+	"mitre_technique",
+	"target_host",
+	"target_port",
+	"tool",
+	"payload_id",
+	"intensity",
+	"expected_label",
+	"success_status"
+	],
+"properties": {
+	"timestamp": {"type": "string"},
+	"scenario_id": {"type": "string"},
+	"run_id": {"type": "string"},
+	"attack_type": {"type": "string"},
+	"mitre_tactic": {"type": "string"},
+	"mitre_technique": {"type": "string"},
+	"target_host": {"type": "string"},
+	"target_port": {"type": ["string", "integer"]},
+	"tool": {"type": "string"},
+	"payload_id": {"type": "string"},
+	"intensity": {
+		"type": "string",
+		"enum": ["benign", "low", "medium", "high", "low_and_slow", "burst"]
+	},
+	"expected_label": {
+		"type": "string",
+		"enum": ["benign", "malicious"]
+	},
+	"success_status": {
+		"type": "string",
+		"enum": ["success", "failed", "timeout", "partial", "unknown"]
+		}
+	}
+}
