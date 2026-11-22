@@ -1,0 +1,12 @@
+{
+	"users": ["adminlab", "socuser", "operatorlab", "guestdummy", "backupdummy"],
+	"passwords": ["DummyPass123!", "LabOnly2026!", "WrongPassword!", "TrainingOnly!", "NotARealSecret!"],
+	"paths": ["/", "/login", "/search", "/admin-demo", "/api/status", "/assets/app.js"],
+	"user_agents": [
+		"Mozilla/5.0 LabBrowser",
+		"curl/8.0 ai-soc-lab",
+		"WazuhDatasetBot/1.0",
+		"TrainingClient/2026",
+		"NormalUserAgent-Lab"
+	]
+}

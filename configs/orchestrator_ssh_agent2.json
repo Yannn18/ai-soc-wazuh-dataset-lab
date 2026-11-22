@@ -1,0 +1,44 @@
+{
+	"lab": {
+		"lab_cidr": "192.168.56.0/24",
+		"target_ip": "192.168.56.30",
+		"target_web": "http://192.168.56.30:3000",
+		"wazuh_server": "10.0.0.10"
+	},
+	"runtime": {
+		"cooldown_seconds": 30,
+		"command_timeout_seconds": 300,
+		"max_scenarios": 20,
+		"seed": 20260624
+	},
+	"scenarios": [
+		{
+		"name": "ssh_brute_force",
+		"enabled": true,
+		"type": "ssh_brute_force",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_brute_force.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --max-attempts 10 --interval 2 --execute"
+		},
+		{
+		"name": "ssh_successful_auth",
+		"enabled": true,
+		"type": "ssh_auth_success",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_successful_auth.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --user trainee --password trainee123 --execute"
+		},
+		{
+		"name": "ssh_privilege_escalation",
+		"enabled": true,
+		"type": "ssh_priv_esc",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_privilege_escalation.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --user trainee --password trainee123 --execute"
+		},
+		{
+		"name": "ssh_lateral_movement",
+		"enabled": true,
+		"type": "ssh_lateral",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_lateral_movement.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --pivot-target 192.168.56.12 --user trainee --password trainee123 --execute"
+		}
+	]
+}

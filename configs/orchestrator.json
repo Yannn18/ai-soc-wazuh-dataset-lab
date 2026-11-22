@@ -1,0 +1,107 @@
+{
+	"lab": {
+		"lab_cidr": "192.168.56.0/24, 10.0.0.0/16",
+		"target_ip": "192.168.56.30, 10.0.2.15",
+		"target_web": "http://192.168.56.30:3000",
+		"wazuh_server": "10.0.0.10"
+	},
+	"runtime": {
+		"cooldown_seconds": 30,
+		"command_timeout_seconds": 300,
+		"max_scenarios": 20,
+		"seed": 20260624
+	},
+	"scenarios": [
+		{
+		"name": "normal_web_access",
+		"enabled": true,
+		"type": "benign",
+		"target": "owasp_juice_server",
+		"command": "curl -sS -I http://192.168.56.30:3000"
+		},
+		{
+		"name": "recon_nmap_light",
+		"enabled": true,
+		"type": "recon",
+		"target": "owasp_juice_server",
+		"command": "python scripts/recon_runner.py --profile nmap_light --target 192.168.56.30 --lab-cidr 192.168.56.0/24"
+		},
+		{
+		"name": "auth_ssh_failure",
+		"enabled": true,
+		"type": "auth_attack",
+		"target": "owasp_juice_server",
+		"command": "python scripts/auth_ssh_failure.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --max-attempts 5 --interval 3 --execute"
+		},
+		{
+		"name": "web_input_dummy",
+		"enabled": true,
+		"type": "web_attack",
+		"target": "owasp_juice_server",
+		"command": "python scripts/web_input_attack.py --url http://192.168.56.30:3000/search --param q --max-requests 5 --interval 2 --execute"
+		},
+		{
+		"name": "suspicious_command_note",
+		"enabled": true,
+		"type": "suspicious_command",
+		"target": "owasp_juice_server",
+		"command": "python scripts/write_custom_pentest_log.py --scenario-id suspicious_command_pattern --attack-type suspicious_command --target 192.168.56.30 --payload-id socket_enum_dummy --expected-label malicious --tool python --intensity low --success-status success"
+		},
+		{
+		"name": "ssh_brute_force",
+		"enabled": true,
+		"type": "ssh_brute_force",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_brute_force.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --max-attempts 10 --interval 2 --execute"
+		},
+		{
+		"name": "ssh_successful_auth",
+		"enabled": true,
+		"type": "ssh_auth_success",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_successful_auth.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --user trainee --password trainee123 --execute"
+		},
+		{
+		"name": "ssh_privilege_escalation",
+		"enabled": true,
+		"type": "ssh_priv_esc",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_privilege_escalation.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --user trainee --password trainee123 --execute"
+		},
+		{
+		"name": "ssh_lateral_movement",
+		"enabled": true,
+		"type": "ssh_lateral",
+		"target": "owasp_juice_server",
+		"command": "python scripts/ssh_lateral_movement.py --target 192.168.56.30 --lab-cidr 192.168.56.0/24 --pivot-target 192.168.56.12 --user trainee --password trainee123 --execute"
+		},
+		{
+		"name": "ssh_brute_force_cwp",
+		"enabled": true,
+		"type": "ssh_brute_force",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_brute_force.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --max-attempts 10 --interval 2 --execute"
+		},
+		{
+		"name": "ssh_successful_auth_cwp",
+		"enabled": true,
+		"type": "ssh_auth_success",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_successful_auth.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --user labuser --password LabPass123! --execute"
+		},
+		{
+		"name": "ssh_privilege_escalation_cwp",
+		"enabled": true,
+		"type": "ssh_priv_esc",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_privilege_escalation.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --user labuser --password LabPass123! --execute"
+		},
+		{
+		"name": "ssh_lateral_movement_cwp",
+		"enabled": true,
+		"type": "ssh_lateral",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_lateral_movement.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --pivot-target 10.0.2.15 --user labuser --password LabPass123! --execute"
+		}
+	]
+}

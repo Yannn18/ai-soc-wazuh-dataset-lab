@@ -1,0 +1,106 @@
+# Environment files - NEVER commit
+.env
+.env.local
+.env.*.local
+*.env
+
+# SSH keys and certificates - NEVER commit
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+id_ecdsa
+id_dsa
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dataset exports (generated)
+datasets/final/*.csv
+datasets/final/*.parquet
+datasets/final/dataset.jsonl
+datasets/final/dataset_final.jsonl
+datasets/final/clean_combined.jsonl
+datasets/final/correlated_combined.jsonl
+datasets/final/featured_combined.jsonl
+datasets/final/labeled_combined.jsonl
+datasets/final/schema.json
+datasets/final/DATASET_CARD.json
+datasets/final/README_dataset.md
+
+# Intermediate datasets
+datasets/*.jsonl
+datasets/clean_combined*.jsonl
+datasets/correlated_combined*.jsonl
+datasets/featured_combined*.jsonl
+datasets/labeled_combined*.jsonl
+datasets/normalized_combined*.jsonl
+
+# Ground truth
+ground-truth/*.jsonl
+
+# Log directories
+logs/auth/
+logs/
+
+# Run directories - KEEP for multi-run dataset combination
+runs/
+
+# Wazuh exports
+wazuh-export/
+
+# Models (generated artifacts)
+models/
+
+# Samples (generated)
+samples/logtest/*.log
+
+# Reports (generated)
+reports/
+
+# Schemas - keep the schema definitions (not generated outputs)
+# schemas/clean_dataset.schema.json - keep (schema definition)
+# schemas/dataset.schema.json - keep (schema definition)
+# schemas/normalized_alert.schema.json - keep (schema definition)
+
+# Configs - keep orchestrator configs (template files, not secrets)
+# configs/orchestrator_ssh_agent.json - keep
+# configs/orchestrator_ssh_agent2.json - keep
+
+# Test artifacts
+tests/__pycache__/
+.pytest_cache/
+coverage/

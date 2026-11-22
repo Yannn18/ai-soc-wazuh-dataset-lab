@@ -1,0 +1,5 @@
+{"payload_id":"sqli_dummy_001","category":"sql_injection_pattern","payload":"' OR 'x'='x","risk_level":"low","expected_label":"web_attack"}
+{"payload_id":"sqli_dummy_002","category":"sql_injection_pattern","payload":"1 UNION SELECT dummy,dummy","risk_level":"low","expected_label":"web_attack"}
+{"payload_id":"xss_dummy_001","category":"xss_pattern","payload":"<script>alert('dummy')</script>","risk_level":"low","expected_label":"web_attack"}
+{"payload_id":"path_dummy_001","category":"path_traversal_pattern","payload":"../../../../etc/passwd","risk_level":"low","expected_label":"web_attack"}
+{"payload_id":"cmd_dummy_001","category":"command_injection_pattern","payload":";id","risk_level":"low","expected_label":"web_attack"}

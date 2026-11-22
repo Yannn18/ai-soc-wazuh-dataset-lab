@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clean AI SOC Dataset (Pre-Feature Engineering)",
+  "type": "object",
+  "required": [
+    "event_id",
+    "timestamp",
+    "agent_name",
+    "source_ip",
+    "destination_ip",
+    "rule_id",
+    "rule_level",
+    "rule_description",
+    "full_log",
+    "scenario_id",
+    "attack_type",
+    "mitre_tactic",
+    "mitre_technique",
+    "label",
+    "confidence",
+    "ground_truth_source"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^final-[a-f0-9]{16}$|^evt-[a-f0-9]{16}$|^final-unmatched-[a-f0-9]{16}$",
+      "description": "Deterministic event ID"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp"
+    },
+    "agent_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Wazuh agent name"
+    },
+    "source_ip": {
+      "type": ["string", "null"],
+      "description": "Source IP address (masked: last octet = X) or hostname"
+    },
+    "destination_ip": {
+      "type": ["string", "null"],
+      "description": "Destination IP address (masked: last octet = X) or hostname"
+    },
+    "rule_id": {
+      "type": "string",
+      "description": "Wazuh rule ID as string"
+    },
+    "rule_level": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "maximum": 16,
+      "description": "Wazuh rule severity level"
+    },
+    "rule_description": {
+      "type": "string",
+      "description": "Wazuh rule description (sanitized)"
+    },
+    "full_log": {
+      "type": "string",
+      "description": "Original log message or full alert JSON (sanitized)"
+    },
+    "scenario_id": {
+      "type": "string",
+      "description": "Scenario identifier from ground truth or builtin mapping"
+    },
+    "attack_type": {
+      "type": "string",
+      "enum": [
+        "ssh_brute_force",
+        "ssh_auth_success",
+        "ssh_priv_esc",
+        "ssh_lateral",
+        "ssh_anomaly",
+        "ssh_unknown",
+        "web_login_failure",
+        "web_input_attack",
+        "web_recon",
+        "web_attack",
+        "fim_event",
+        "suspicious_command",
+        "recon",
+        "benign_admin",
+        "auth_attack",
+        "benign",
+        "unknown",
+        "unmatched"
+      ],
+      "description": "Normalized attack type"
+    },
+    "mitre_tactic": {
+      "type": "string",
+      "description": "MITRE ATT&CK tactic"
+    },
+    "mitre_technique": {
+      "type": "string",
+      "description": "MITRE ATT&CK technique ID or technique name"
+    },
+    "label": {
+      "type": "string",
+      "enum": [
+        "malicious",
+        "benign",
+        "unlabeled",
+        "recon",
+        "web_fingerprint",
+        "vuln_scan_light"
+      ],
+      "description": "Base label from correlation (includes scenario-specific labels for ground truth)"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Correlation confidence score"
+    },
+    "ground_truth_source": {
+      "type": "string",
+      "enum": ["ground_truth_correlated", "ground_truth_only", "wazuh_alert_only", "none"],
+      "description": "Source of ground truth correlation"
+    },
+    "correlation_status": {
+      "type": ["string", "null"],
+      "enum": ["matched_alert", "ground_truth_without_alert", "alert_without_ground_truth", null],
+      "description": "Correlation status between alert and ground truth"
+    },
+    "run_id": {
+      "type": ["string", "null"],
+      "description": "Orchestrator run identifier"
+    },
+    "raw_alert": {
+      "type": ["string", "null"],
+      "description": "Raw Wazuh alert JSON (removed in final)"
+    },
+    "ssh_user": {
+      "type": ["string", "null"],
+      "description": "SSH username from builtin alerts"
+    },
+    "ssh_srcport": {
+      "type": ["string", "null"],
+      "description": "SSH source port"
+    },
+    "ssh_dstport": {
+      "type": ["string", "null"],
+      "description": "SSH destination port"
+    },
+    "ssh_protocol": {
+      "type": ["string", "null"],
+      "description": "SSH protocol version"
+    },
+    "payload_id": {
+      "type": ["string", "null"],
+      "description": "Payload identifier from custom alerts"
+    },
+    "tool": {
+      "type": ["string", "null"],
+      "description": "Tool used in attack scenario"
+    },
+    "intensity": {
+      "type": ["string", "null"],
+      "enum": ["low", "medium", "high", null],
+      "description": "Attack intensity"
+    },
+    "alert_source": {
+      "type": ["string", "null"],
+      "enum": ["custom_ai_soc", "builtin_ssh", "suricata", "zeek", "other", "unknown", null],
+      "description": "Source sensor/type of alert"
+    },
+    "rule_groups": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Wazuh rule groups"
+    },
+    "rule_mitre_id": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Rule MITRE IDs"
+    },
+    "location": {
+      "type": ["string", "null"],
+      "description": "Alert location"
+    },
+    "agent_ip": {
+      "type": ["string", "null"],
+      "description": "Agent IP address"
+    }
+  },
+  "additionalProperties": true
+}

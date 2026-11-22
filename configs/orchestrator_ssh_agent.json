@@ -1,0 +1,44 @@
+{
+	"lab": {
+		"lab_cidr": "10.0.0.0/16",
+		"target_ip": "10.0.2.15",
+		"target_web": "http://10.0.2.15",
+		"wazuh_server": "10.0.0.10"
+	},
+	"runtime": {
+		"cooldown_seconds": 30,
+		"command_timeout_seconds": 300,
+		"max_scenarios": 20,
+		"seed": 20260624
+	},
+	"scenarios": [
+		{
+		"name": "ssh_brute_force",
+		"enabled": true,
+		"type": "ssh_brute_force",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_brute_force.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --max-attempts 10 --interval 2 --execute"
+		},
+		{
+		"name": "ssh_successful_auth",
+		"enabled": true,
+		"type": "ssh_auth_success",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_successful_auth.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --user labuser --password LabPass123! --execute"
+		},
+		{
+		"name": "ssh_privilege_escalation",
+		"enabled": true,
+		"type": "ssh_priv_esc",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_privilege_escalation.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --user labuser --password LabPass123! --execute"
+		},
+		{
+		"name": "ssh_lateral_movement",
+		"enabled": true,
+		"type": "ssh_lateral",
+		"target": "cwp-hosting",
+		"command": "python scripts/ssh_lateral_movement.py --target 10.0.2.15 --port 22 --lab-cidr 10.0.0.0/16 --pivot-target 10.0.2.15 --user labuser --password LabPass123! --execute"
+		}
+	]
+}

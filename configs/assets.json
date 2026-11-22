@@ -1,0 +1,27 @@
+{
+	"lab_name": "ai-soc-wazuh-dataset-lab",
+	"network": "192.168.56.0/24",
+	"assets": [
+		{
+		"name": "kali-attacker",
+		"role": "attacker_cli",
+		"ip": "192.168.56.12",
+		"os": "Kali Linux",
+		"allowed": true
+		},
+		{
+		"name": "ubuntu-target",
+		"role": "monitored_target",
+		"ip": "192.168.56.30",
+		"os": "Ubuntu Server",
+		"wazuh_agent": true
+		},
+		{
+		"name": "wazuh-server",
+		"role": "siem_xdr",
+		"ip": "192.168.56.22",
+		"os": "Open Suse Leap 16",
+		"components": ["manager", "indexer", "dashboard"]
+		}
+	]
+}
